@@ -1,0 +1,45 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class mocing : MonoBehaviour
+{
+    public CharacterController ch_controller;
+    public float speed = 30f;
+    Vector3 velocity;
+    public float gravity = -9.81f;
+    public Transform groundCheack;
+    public float groundDistanse = 0.4f;
+    public LayerMask groundMask;
+    bool isGrounded;
+    
+
+
+    void Start()
+    {
+        
+    }
+    
+    void Update()//движение 
+    {
+       
+
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+
+      
+        isGrounded = Physics.CheckSphere(groundCheack.position, groundDistanse, groundMask);
+
+
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
+
+        Vector3 move = transform.right * x + transform.forward * z;
+        ch_controller.Move(move * speed * Time.deltaTime);
+
+        ch_controller.Move(velocity * Time.deltaTime);
+    }
+
+}
