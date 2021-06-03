@@ -3,34 +3,49 @@
 int main(void)
 {
 	InitUSART1();																																				
-	uint8_t text[10] = {0x6E,0x64,0x61,0x2D,0x31,0x33,0x3E,0x20,0x20,0x20};						//Массив содержащий сообщение "nda-13>"   
+	uint8_t text[11] = {0x6E,0x64,0x61,0x2D,0x31,0x33,0x3E,0x20,0x20,0x20,0x20};						//Массив содержащий сообщение "nda-13>"   
 	while(1){
 		
 		text[7] = 0x20;																																		
 		text[8] = 0x20;																																		
-		text[9] = 0x20;																																		
+		text[9] = 0x20;
+		text[10] = 0x20;
 		
 		while ((USART1->ISR & USART_ISR_RXNE) == 0) {}																		
 		uint8_t d = (uint8_t)USART1->RDR;																								
 
-			for (uint8_t i=0; i<9; i++){																									
+			for (uint8_t i=0; i<11; i++){																									
 		while ((USART1->ISR & USART_ISR_TXE) == 0) {}																		
 			USART1->TDR = 0X7F;																														
 		
 		}
 		
 	
-		for (uint16_t i = 9 ; i>13; i--){       
+		for (uint16_t i = 10; i>7; i--){       
 			if(d<13) {																																			
 				text[i] = d+48;																															
 				break;																																		
 			}
-			text[i] = d%13+48;																																
-			d = d/13;																																				
+			uint8_t temp=0;
+			temp = d%13;
+			if(temp==10){
+			
+			    text[i] = 0x41; 
+			}
+			else if(temp==11){
+			   text[i] = 0x42;
+			}
+			else if(temp==12){
+				text[i]= 0x43;
+			}
+			else{
+			   text[i]=temp + 48;
+			}
+			d = d/13;
 		} 
 		
 		
-		for (uint8_t i=0; i<9; i++){
+		for (uint8_t i=0; i<11; i++){
 			while ( (USART1->ISR & USART_ISR_TXE) == 0) {}																
 			USART1->TDR = text[i];																													
 			
