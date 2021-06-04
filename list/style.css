@@ -1,0 +1,46 @@
+.title{
+    color: #F0FFFF;
+}
+
+body{
+    font-size: 22px;
+    color: #000000;
+    max-width: 840px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #2adada;
+}
+
+.list{
+    list-style: none;
+    padding: 30px;
+    text-align: left;
+}
+
+.task{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-items: space-between;
+    width: 780px;
+    margin: 5px 0;
+}
+
+.text{
+    width: 700px;
+    overflow-wrap: break-word;
+}
+
+.checkbox{
+    margin-right: 20px;
+}
+
+.delBtn {
+    margin-left: auto;
+}
+
+.done{
+    margin-left: 37px;
+    text-decoration: line-through;
+    color: #808080;
+}
